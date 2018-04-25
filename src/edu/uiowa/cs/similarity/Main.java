@@ -2,6 +2,7 @@ package edu.uiowa.cs.similarity;
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 public class Main {
