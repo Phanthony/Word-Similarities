@@ -18,7 +18,7 @@ public class Main {
 		while (true) {
 			System.out.print("> ");
 			String command = input.readLine();
-			if (command.equals("help") || command.equals("h")) {
+			if (command.equals("help") ){
 				printMenu();
                         }
                         if (command.equals("index FILE")){
@@ -30,17 +30,5 @@ public class Main {
 				System.err.println("Unrecognized command");
 			}
 		}
-    }
-
-    public static void readFile(String fileName) throws FileNotFoundException {
-        Scanner file = new Scanner(new File(fileName));
-        
-        //file.useDelimiter(",*--:;"); ///use to clean up setences (maybe)
-        while (file.hasNext()){
-            String string = file.nextLine();
-            System.out.println(string);
-        }
-        
-        file.close();
     }
 }
