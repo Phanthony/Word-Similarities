@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.*;
+import opennlp.tools.stemmer.PorterStemmer;
 
 /**
  *
@@ -21,6 +22,7 @@ public class readFile {
         ArrayList<ArrayList<String>> sentenceList = new ArrayList<>();
         ArrayList<String> builder = new ArrayList<>();
         String sentenceEnd = ".*[.!?].*";
+        PorterStemmer stem = new PorterStemmer();
 // If the sentence contains ^ then it means its the end of the sentence
 String puncuation = "[,--;:\"']";
         Pattern puncuationPat = Pattern.compile((".*[,--;:\"'].*"));
@@ -28,7 +30,7 @@ String puncuation = "[,--;:\"']";
         while (file.hasNext()){
             // check to see if the word you're adding to the building list is the end of the sentence
             // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
-            String checker = file.next().toLowerCase();
+            String checker = stem.stem(file.next().toLowerCase());
             Matcher f = puncuationPat.matcher(checker);
             if(f.find()){
                 checker = checker.replaceAll(puncuation, "");
