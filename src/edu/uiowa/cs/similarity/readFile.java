@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.*;
 
 /**
  *
@@ -21,22 +22,28 @@ public class readFile {
         ArrayList<String> builder = new ArrayList<>();
         String sentenceEnd = ".*[.!?].*";
 // If the sentence contains ^ then it means its the end of the sentence
-        String puncuation = "[,-;:\"']";
+String puncuation = "[,--;:\"']";
+        Pattern puncuationPat = Pattern.compile((".*[,--;:\"'].*"));
         // check puncuation and remove it out of words
         while (file.hasNext()){
             // check to see if the word you're adding to the building list is the end of the sentence
+            // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
             String checker = file.next();
-            if(checker.matches(puncuation)){
+            Matcher f = puncuationPat.matcher(checker);
+            if(f.find()){
                 checker = checker.replaceAll(puncuation, "");
             }
-             System.out.println(checker);
+          
             if(!checker.matches(sentenceEnd)){
             builder.add(checker);
+               System.out.println(checker);
             }
             else{
+                checker = checker.replaceAll("[.!?]", "");
                 builder.add(checker);
                 sentenceList.add(builder);
                 builder = new ArrayList<>();
+                   System.out.println(checker);
             }
 
     }
