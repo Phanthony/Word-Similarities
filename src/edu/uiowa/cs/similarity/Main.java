@@ -9,7 +9,6 @@ public class Main {
 		System.out.println("Supported commands:");
 		System.out.println("help - Print the supported commands");
 		System.out.println("quit - Quit this program");
-                System.out.println("index FILE - Read in and index the file by given FILE");
 	}
 
     public static void main(String[] args) throws IOException {
@@ -35,16 +34,13 @@ public class Main {
                            
                          if (command.equals("num")){
                               System.out.println(Index.size());
-                         }
-                           
                         
-                        if (command.equals("index FILE")){
-                            System.out.println("Indexing FILENAME");
-                            
-			} else if (command.equals("quit")) {
-				System.exit(0);
-			} else {
-				System.err.println("Unrecognized command");
+			} 
+                         else if (command.equals("quit")) {		
+                             System.exit(0);
+			} 
+                         else {		
+                             System.err.println("Unrecognized command");
 			}
 		}
     }
