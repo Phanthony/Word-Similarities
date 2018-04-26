@@ -36,10 +36,11 @@ String puncuation = "[,--;:\"']";
         // check puncuation and remove it out of words
         while (file.hasNext()){
             int stopCheck = 0;
-            // check to see if the word you're adding to the building list is the end of the sentence
             // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
             String checker = (file.next().toLowerCase());
+            // Puts the current word into lowercase 
             Matcher f = puncuationPat.matcher(checker);
+            // checks to see if it is a stop word, if so don't do the rest of the checks
             for(String stopper : stopList){
               if (checker.matches(stopper)){
                   stopCheck = 1;
@@ -47,10 +48,13 @@ String puncuation = "[,--;:\"']";
             }
             
           if (stopCheck == 0){
-              checker = stem.stem(checker.toLowerCase());
+              // stem the currnet word
+              checker = stem.stem(checker);
+              // checks puncuation and removes it
                if(f.find()){
                 checker = checker.replaceAll(puncuation, "");
             }
+                // check to see if the word you're adding to the building list is the end of the sentence
             if(!checker.matches(sentenceEnd)){
             builder.add(checker);
                System.out.println(checker);
