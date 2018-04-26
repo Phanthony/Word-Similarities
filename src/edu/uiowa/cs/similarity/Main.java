@@ -25,7 +25,7 @@ public class Main {
 				printMenu();
                         }
                         if (command.startsWith("index")){
-                            String[] inputSplit = command.split(" ");
+                           String[] inputSplit = command.split(" ");
                            readFile readFile = new readFile();
                            Index = readFile.readFileWithScanner(inputSplit[1]);
                            System.out.println("Indexing " + inputSplit[1]);
