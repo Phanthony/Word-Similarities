@@ -17,7 +17,7 @@ public class Main {
 		while (true) {
 			System.out.print("> ");
 			String command = input.readLine();
-			if (command.equals("help") ){
+			if (command.equals("help") || command.equals("h") ){
 				printMenu();
                         }
                         if (command.equals("str")){
