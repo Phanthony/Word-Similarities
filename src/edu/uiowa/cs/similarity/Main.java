@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
 public class Main {
 	private static void printMenu() {
 		System.out.println("Supported commands:");
@@ -21,6 +20,11 @@ public class Main {
 			String command = input.readLine();
 			if (command.equals("help") ){
 				printMenu();
+                        }
+                        if (command.equals("str")){
+                           readFile x = new readFile();
+                           x.readFileWithScanner("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\Final Project\\test.txt");
+                           
                         }
                         if (command.equals("index FILE")){
                             System.out.println("Indexing FILENAME");
