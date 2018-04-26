@@ -17,7 +17,8 @@ import opennlp.tools.stemmer.PorterStemmer;
  * @author Anthony
  */
 public class readFile {
-    public static void readFileWithScanner(String fileName) throws FileNotFoundException{
+    
+    public static ArrayList readFileWithScanner(String fileName) throws FileNotFoundException{
         Scanner file = new Scanner(new File(fileName));
         ArrayList<ArrayList<String>> sentenceList = new ArrayList<>();
         ArrayList<String> builder = new ArrayList<>();
@@ -50,6 +51,7 @@ String puncuation = "[,--;:\"']";
 
     }
        
+return sentenceList;
 }
 }
     
