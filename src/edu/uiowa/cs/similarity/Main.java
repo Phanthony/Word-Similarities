@@ -13,6 +13,7 @@ public class Main {
 	}
 
     public static void main(String[] args) throws IOException {
+         ArrayList<ArrayList<String>> Index = new ArrayList<>();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
@@ -22,10 +23,21 @@ public class Main {
 				printMenu();
                         }
                         if (command.equals("str")){
-                           readFile x = new readFile();
-                           x.readFileWithScanner("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\Final Project\\test.txt");
-                           
+                           readFile readFile = new readFile();
+                           Index = readFile.readFileWithScanner("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\Final Project\\test.txt");
                         }
+                          
+                            if (command.equals("Sentences")){
+                               
+                               System.out.println(Index);
+                            
+                            }
+                           
+                         if (command.equals("num")){
+                              System.out.println(Index.size());
+                         }
+                           
+                        
                         if (command.equals("index FILE")){
                             System.out.println("Indexing FILENAME");
                             
