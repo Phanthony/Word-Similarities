@@ -22,7 +22,7 @@ public class Main {
                         }
                         if (command.equals("str")){
                            readFile readFile = new readFile();
-                           Index = readFile.readFileWithScanner("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\cleanup_test.txt");
+                           Index = readFile.readFileWithScanner("C:\\Users\\Nghia\\OneDrive\\Desktop\\PRJECT\\project-team-40\\cleanup_test.txt");
                         }
                           
                             if (command.equals("Sentences")){
