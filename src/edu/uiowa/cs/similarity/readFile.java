@@ -19,11 +19,12 @@ import opennlp.tools.stemmer.PorterStemmer;
 public class readFile {
     
     public static ArrayList readFileWithScanner(String fileName) throws FileNotFoundException{
-        Scanner stopFile = new Scanner(new File("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\stopwords.txt"));
+        Scanner stopFile = new Scanner(new File("C:\\Users\\Nghia\\OneDrive\\Desktop\\PRJECT\\project-team-40\\stopwords.txt"));
         ArrayList<String> stopList = new ArrayList<>();
         while (stopFile.hasNextLine()){
             stopList.add(stopFile.nextLine());
         }
+        stopFile.close();
         //Turn stopwords into an array
         Scanner file = new Scanner(new File(fileName));
         ArrayList<ArrayList<String>> sentenceList = new ArrayList<>();
@@ -31,15 +32,16 @@ public class readFile {
         String sentenceEnd = ".*[.!?].*";
         PorterStemmer stem = new PorterStemmer();
 // If the sentence contains ^ then it means its the end of the sentence
-String puncuation = "[,--;:\"']";
-        Pattern puncuationPat = Pattern.compile((".*[,--;:\"'].*"));
+        String puncuation = "[,;:\"]";
         // check puncuation and remove it out of words
         while (file.hasNext()){
             int stopCheck = 0;
             // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
             String checker = (file.next().toLowerCase());
+            if(checker.matches((".*[,;:\"].*"))){
+                checker = checker.replaceAll(puncuation, "");
+            }
             // Puts the current word into lowercase 
-            Matcher f = puncuationPat.matcher(checker);
             // checks to see if it is a stop word, if so don't do the rest of the checks
             for(String stopper : stopList){
               if (checker.matches(stopper)){
@@ -51,9 +53,6 @@ String puncuation = "[,--;:\"']";
               // stem the currnet word
               checker = stem.stem(checker);
               // checks puncuation and removes it
-               if(f.find()){
-                checker = checker.replaceAll(puncuation, "");
-            }
                 // check to see if the word you're adding to the building list is the end of the sentence
             if(!checker.matches(sentenceEnd)){
             builder.add(checker);
