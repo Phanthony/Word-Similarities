@@ -19,6 +19,12 @@ import opennlp.tools.stemmer.PorterStemmer;
 public class readFile {
     
     public static ArrayList readFileWithScanner(String fileName) throws FileNotFoundException{
+        Scanner stopFile = new Scanner(new File("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\stopwords.txt"));
+        ArrayList<String> stopList = new ArrayList<>();
+        while (stopFile.hasNextLine()){
+            stopList.add(stopFile.nextLine());
+        }
+        //Turn stopwords into an array
         Scanner file = new Scanner(new File(fileName));
         ArrayList<ArrayList<String>> sentenceList = new ArrayList<>();
         ArrayList<String> builder = new ArrayList<>();
@@ -29,14 +35,22 @@ String puncuation = "[,--;:\"']";
         Pattern puncuationPat = Pattern.compile((".*[,--;:\"'].*"));
         // check puncuation and remove it out of words
         while (file.hasNext()){
+            int stopCheck = 0;
             // check to see if the word you're adding to the building list is the end of the sentence
             // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
-            String checker = stem.stem(file.next().toLowerCase());
+            String checker = (file.next().toLowerCase());
             Matcher f = puncuationPat.matcher(checker);
-            if(f.find()){
+            for(String stopper : stopList){
+              if (checker.matches(stopper)){
+                  stopCheck = 1;
+              }  
+            }
+            
+          if (stopCheck == 0){
+              checker = stem.stem(checker.toLowerCase());
+               if(f.find()){
                 checker = checker.replaceAll(puncuation, "");
             }
-          
             if(!checker.matches(sentenceEnd)){
             builder.add(checker);
                System.out.println(checker);
@@ -50,6 +64,7 @@ String puncuation = "[,--;:\"']";
             }
 
     }
+        }
        
 return sentenceList;
 }
