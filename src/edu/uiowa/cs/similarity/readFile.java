@@ -8,21 +8,40 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author Nghia
+ * @author Anthony
  */
 public class readFile {
     public static void readFileWithScanner(String fileName) throws FileNotFoundException{
-        String str = "Hello World";
-        Scanner file = new Scanner(str);
-        ArrayList<String> sentenceList = new ArrayList<String>();
-        //file.useDelimiter(",*--:;")// for cleaning up words
+        Scanner file = new Scanner(new File(fileName));
+        ArrayList<ArrayList<String>> sentenceList = new ArrayList<>();
+        ArrayList<String> builder = new ArrayList<>();
+        String sentenceEnd = ".*[.!?].*";
+// If the sentence contains ^ then it means its the end of the sentence
+        String puncuation = "[,-;:\"']";
+        // check puncuation and remove it out of words
         while (file.hasNext()){
-            sentenceList.add(file.nextLine());
+            // check to see if the word you're adding to the building list is the end of the sentence
+            String checker = file.next();
+            if(checker.matches(puncuation)){
+                checker = checker.replaceAll(puncuation, "");
+            }
+             System.out.println(checker);
+            if(!checker.matches(sentenceEnd)){
+            builder.add(checker);
+            }
+            else{
+                builder.add(checker);
+                sentenceList.add(builder);
+                builder = new ArrayList<>();
+            }
+
+    }
        
-    }
-    }
 }
+}
+    
 
