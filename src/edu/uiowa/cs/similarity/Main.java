@@ -20,9 +20,10 @@ public class Main {
 			if (command.equals("help") || command.equals("h") ){
 				printMenu();
                         }
-                        if (command.equals("str")){
+                        if (command.startsWith("index")){
+                            String[] inputSplit = command.split(" ");
                            readFile readFile = new readFile();
-                           Index = readFile.readFileWithScanner("C:\\Users\\Nghia\\OneDrive\\Desktop\\PRJECT\\project-team-40\\cleanup_test.txt");
+                           Index = readFile.readFileWithScanner(inputSplit[1]);
                         }
                           
                             if (command.equals("Sentences")){
