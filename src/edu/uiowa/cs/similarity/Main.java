@@ -9,7 +9,7 @@ public class Main {
 		System.out.println("help - Print the supported commands");
 		System.out.println("quit - Quit this program");
                 System.out.println("index FILE - Read in and index the file give by FILE ");
-                System.out.println("num sentences - Print the number of sentences in the file");
+                System.out.println("Num sentences - Print the number of sentences in the file");
                 System.out.println("Sentences - Print the sentences in the file");
                 
 	}
@@ -37,7 +37,7 @@ public class Main {
                             
                             }
                            
-                         if (command.equals("num sentences")){
+                         if (command.equals("Num sentences")){
                               System.out.println(Index.size());
                         
 			} 
