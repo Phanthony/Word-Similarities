@@ -8,6 +8,10 @@ public class Main {
 		System.out.println("Supported commands:");
 		System.out.println("help - Print the supported commands");
 		System.out.println("quit - Quit this program");
+                System.out.println("index FILE - Read in and index the file give by FILE ");
+                System.out.println("num - Print the number of sentences in the file");
+                System.out.println("Sentences - Print the sentences in the file");
+                
 	}
 
     public static void main(String[] args) throws IOException {
@@ -24,6 +28,7 @@ public class Main {
                             String[] inputSplit = command.split(" ");
                            readFile readFile = new readFile();
                            Index = readFile.readFileWithScanner(inputSplit[1]);
+                           System.out.println("Indexing " + inputSplit[1]);
                         }
                           
                             if (command.equals("Sentences")){
