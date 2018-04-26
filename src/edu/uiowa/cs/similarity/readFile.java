@@ -28,7 +28,7 @@ String puncuation = "[,--;:\"']";
         while (file.hasNext()){
             // check to see if the word you're adding to the building list is the end of the sentence
             // Needs chekcer to hold file.next so you dont end up calling it multiple times moving through the sentences
-            String checker = file.next();
+            String checker = file.next().toLowerCase();
             Matcher f = puncuationPat.matcher(checker);
             if(f.find()){
                 checker = checker.replaceAll(puncuation, "");
