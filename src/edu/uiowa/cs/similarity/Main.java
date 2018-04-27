@@ -1,7 +1,7 @@
 package edu.uiowa.cs.similarity;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
 	private static void printMenu() {
@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
          ArrayList<ArrayList<String>> Index = new ArrayList<>();
+         Map <String, Map> Vectors = new HashMap<>();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
