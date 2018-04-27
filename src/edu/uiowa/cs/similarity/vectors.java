@@ -19,25 +19,29 @@ public class vectors {
                   Map <String, Double > vector = new HashMap<>();
                   for(String word2 : sentenceArray){
                       if(!word.equals(word2)){
-                          vector.put(word, 1.0);
+                          vector.put(word2, 1.0);
                       }
                   }
                   master.put(word, vector);
                   seen.add(word);
               }
+              else{
               Map<String, Double> insideVector = master.get(word);
               for (String word2 : sentenceArray){
                   if(!word.equals(word2)){
-                      if(insideVector.containsKey(word)){
-                          insideVector.replace(word, insideVector.get(word) + 1.0);
+                      if(insideVector.containsKey(word2)){
+                          insideVector.replace(word2, insideVector.get(word2) + 1.0);
                       }
                       else{
                           insideVector.put(word, 1.0);
                       }
                   }
               }
+              seen.add(word);
+              }
           }
       }
+          
     }
       return master;
     }
