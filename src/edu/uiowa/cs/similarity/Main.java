@@ -11,12 +11,14 @@ public class Main {
                 System.out.println("index FILE - Read in and index the file give by FILE ");
                 System.out.println("Num sentences - Print the number of sentences in the file");
                 System.out.println("Sentences - Print the sentences in the file");
+                System.out.println("Vectors - Print the vectors for each word");
                 
 	}
 
     public static void main(String[] args) throws IOException {
          ArrayList<ArrayList<String>> Index = new ArrayList<>();
          Map <String, Map> Vectors = new HashMap<>();
+
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
@@ -25,20 +27,23 @@ public class Main {
 			if (command.equals("help") || command.equals("h") ){
 				printMenu();
                         }
-                        if (command.startsWith("index")){
+                        else if (command.equals("Vectors")){
+                            Vectors = vectors.vectorCreation(Vectors, Index);
+                            System.out.println(Vectors.entrySet());
+                        }
+                        else if (command.startsWith("index")){
                            String[] inputSplit = command.split(" ");
-                           readFile readFile = new readFile();
                            Index = readFile.readFileWithScanner(inputSplit[1]);
                            System.out.println("Indexing " + inputSplit[1]);
                         }
                           
-                            if (command.equals("Sentences")){
+                        else if (command.equals("Sentences")){
                                
                                System.out.println(Index);
                             
                             }
                            
-                         if (command.equals("Num sentences")){
+                        else if (command.equals("Num sentences")){
                               System.out.println(Index.size());
                         
 			} 
