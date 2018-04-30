@@ -54,6 +54,17 @@ public class vectors {
         }
         return false;
     }
+    
+    private static ArrayList similar (int j, String word, Map<String, Map<String, Double>> vectors){
+        ArrayList<
+        String[] allwords = vectors.keySet().toArray(new String[0]);
+        vectors.get(word).keySet().toArray(new String[0]);
+        for (String otherwords : allwords){
+            if (!word.equals(otherwords)){
+                
+            }
+        }
+    }
 }
 
 
