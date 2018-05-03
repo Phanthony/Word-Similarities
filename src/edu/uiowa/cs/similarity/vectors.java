@@ -7,10 +7,11 @@ package edu.uiowa.cs.similarity;
  */
 import java.util.ArrayList;
 import java.util.*;
+import java.lang.Math;
 
 
 public class vectors {
-    public static Map vectorCreation(Map<String, Map> master , ArrayList<ArrayList<String>> sentence){
+    public static Map vectorCreation(Map<String, Map<String, Double>> master , ArrayList<ArrayList<String>> sentence){
       for (ArrayList<String> sentenceArray : sentence){
           ArrayList<String> seen = new ArrayList<>();
           for (String word : sentenceArray){
@@ -33,7 +34,7 @@ public class vectors {
                           insideVector.replace(word2, insideVector.get(word2) + 1.0);
                       }
                       else{
-                          insideVector.put(word, 1.0);
+                          insideVector.put(word2, 1.0);
                       }
                   }
               }
@@ -55,15 +56,65 @@ public class vectors {
         return false;
     }
     
-    private static ArrayList similar (int j, String word, Map<String, Map<String, Double>> vectors){
-        ArrayList<
-        String[] allwords = vectors.keySet().toArray(new String[0]);
-        vectors.get(word).keySet().toArray(new String[0]);
-        for (String otherwords : allwords){
-            if (!word.equals(otherwords)){
+    private static ArrayList<String> mergeList (ArrayList<String> array1, ArrayList<String> array2){
+        ArrayList<String> combined = new ArrayList<>(array1);
+        combined.removeAll(array2);
+        combined.addAll(array2);
+        return combined;
+    }
+    
+    private static void addSimValue (ArrayList<Map<String, Double>> masterList, int j, Map<String,Double> sim, Double simValue){
+        Double smallest = 0.0;
+        if(masterList.isEmpty()){
+            masterList.add(sim);
+            smallest = simValue;
+        }
+        else if (simValue > smallest) {
+            for(int x = 0; x < masterList.size(); x++){
                 
             }
         }
+    }
+    
+    
+    
+    public static ArrayList topJ (int j, String word, Map<String, Map<String, Double>> masterVector){
+        ArrayList<Map<String, Double>> simValueList = new ArrayList<>();
+        Map<String, Double> wordVector = masterVector.get(word);
+       ArrayList<String> wordsinWordVector = new ArrayList<>(wordVector.keySet());
+       Set <String> comparingWords = masterVector.keySet();
+       for (String wordinComparingWords : comparingWords){
+           if(!wordinComparingWords.equals(word)){
+               Map<String, Double> comparingVector = masterVector.get(wordinComparingWords);
+                ArrayList<String> wordsinComparingVector = new ArrayList<>(comparingVector.keySet());
+                ArrayList<String> combinedLists = new ArrayList<>(mergeList(wordsinWordVector, wordsinComparingVector));
+                Double numerator = 0.0;
+                Double denominator1 = 0.0;
+                Double denominator2 = 0.0;
+                for (String wordsinCombinedLists : combinedLists){
+                    if (wordVector.containsKey(wordsinCombinedLists) && comparingVector.containsKey(wordsinCombinedLists)){
+                        numerator += comparingVector.get(wordsinCombinedLists) * wordVector.get(wordsinCombinedLists);
+                    }
+                     if (wordVector.containsKey(wordsinCombinedLists)){
+                         denominator1 += wordVector.get(wordsinCombinedLists) * wordVector.get(wordsinCombinedLists);
+                     }
+                     if (comparingVector.containsKey(wordsinCombinedLists)){
+                         denominator2 += comparingVector.get(wordsinCombinedLists) * comparingVector.get(wordsinCombinedLists);
+                     }
+                }
+                Double simValue;
+                if(numerator == 0.0 || denominator1 == 0.0 || denominator2 == 0.0){
+                    simValue = 0.0;
+                }
+                else{
+                     simValue = numerator / Math.sqrt(denominator1 * denominator2);
+                }
+                Map<String, Double> simWordValue = new HashMap<>();
+                simWordValue.put(wordinComparingWords, simValue);
+                simValueList.add(simWordValue);
+           }
+       }
+       return simValueList;
     }
 }
 
