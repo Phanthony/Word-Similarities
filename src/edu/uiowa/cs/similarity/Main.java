@@ -8,11 +8,11 @@ public class Main {
 		System.out.println("Supported commands:");
 		System.out.println("help - Print the supported commands");
 		System.out.println("quit - Quit this program");
-                System.out.println("index FILE - Read in and index the file give by FILE ");
+                System.out.println("Index FILE - Read in and index the file give by FILE ");
                 System.out.println("Num sentences - Print the number of sentences in the file");
                 System.out.println("Sentences - Print the sentences in the file");
                 System.out.println("Vectors - Print the vectors for each word");
-                System.out.println("topj WORD NUM - returns NUM number of words most similar to WORD");
+                System.out.println("Topj WORD NUM - returns NUM number of words most similar to WORD");
 	}
 
     public static void main(String[] args) throws IOException {
@@ -27,23 +27,23 @@ public class Main {
 			if (command.equals("help") || command.equals("h") ){
 				printMenu();
                         }
-                        else if (command.equals("Vectors")){
+                        else if (command.toLowerCase().equals("vectors")){
                             Vectors = vectors.vectorCreation(Vectors, Index);
                             System.out.println(Vectors.entrySet());
                         }
-                        else if (command.startsWith("index")){
+                        else if (command.toLowerCase().startsWith("index")){
                            String[] inputSplit = command.split(" ");
                            Index = readFile.readFileWithScanner(inputSplit[1]);
                            System.out.println("Indexing " + inputSplit[1]);
                         }
                           
-                        else if (command.equals("Sentences")){
+                        else if (command.toCharArray().equals("sentences")){
                                
                                System.out.println(Index);
                             
                             }
                         
-                        else if (command.startsWith("topj")){
+                        else if (command.toLowerCase().startsWith("topj")){
                             String[] inputSplit = command.split(" ");
                             if (Vectors.containsKey(inputSplit[1])){
                             System.out.println(vectors.topJ(Integer.parseInt(inputSplit[2]), inputSplit[1], Vectors));
@@ -53,7 +53,7 @@ public class Main {
                             }
                         }
                            
-                        else if (command.equals("Num sentences")){
+                        else if (command.toLowerCase().equals("num sentences")){
                               System.out.println(Index.size());
                         
 			} 
