@@ -63,17 +63,29 @@ public class vectors {
         return combined;
     }
     
-    private static void addSimValue (ArrayList<Map<String, Double>> masterList, int j, Map<String,Double> sim, Double simValue){
-        Double smallest = 0.0;
+    private static double addSimValue (ArrayList<Map<String, Double>> masterList, int j, Map<String,Double> sim, Double simValue, Double smallest){
+        
         if(masterList.isEmpty()){
             masterList.add(sim);
             smallest = simValue;
         }
-        else if (simValue > smallest) {
+        else if (simValue > smallest || masterList.size() < j) {
             for(int x = 0; x < masterList.size(); x++){
-                
+                ArrayList<String> simList = new ArrayList<>(masterList.get(x).keySet());
+                if (simValue > masterList.get(x).get(simList.get(0))){
+                    masterList.add(x, sim);
+                    ArrayList<String> last = new ArrayList<>(masterList.get(masterList.size()-1).keySet());
+                    smallest = masterList.get(masterList.size()-1).get(last.get(0));
+                    break;
+                }
             }
         }
+        if(masterList.size() > j){
+                        masterList.remove(masterList.size()-1);
+                        ArrayList<String> last = new ArrayList<>(masterList.get(masterList.size()-1).keySet());
+                        smallest = masterList.get(masterList.size()-1).get(last.get(0));
+                    }
+        return smallest;
     }
     
     
@@ -83,6 +95,7 @@ public class vectors {
         Map<String, Double> wordVector = masterVector.get(word);
        ArrayList<String> wordsinWordVector = new ArrayList<>(wordVector.keySet());
        Set <String> comparingWords = masterVector.keySet();
+       Double smallest = 0.0;
        for (String wordinComparingWords : comparingWords){
            if(!wordinComparingWords.equals(word)){
                Map<String, Double> comparingVector = masterVector.get(wordinComparingWords);
@@ -111,7 +124,7 @@ public class vectors {
                 }
                 Map<String, Double> simWordValue = new HashMap<>();
                 simWordValue.put(wordinComparingWords, simValue);
-                simValueList.add(simWordValue);
+                smallest = addSimValue(simValueList, j, simWordValue, simValue, smallest);
            }
        }
        return simValueList;
