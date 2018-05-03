@@ -12,12 +12,12 @@ public class Main {
                 System.out.println("Num sentences - Print the number of sentences in the file");
                 System.out.println("Sentences - Print the sentences in the file");
                 System.out.println("Vectors - Print the vectors for each word");
-                
+                System.out.println("topj WORD NUM - returns NUM number of words most similar to WORD");
 	}
 
     public static void main(String[] args) throws IOException {
          ArrayList<ArrayList<String>> Index = new ArrayList<>();
-         Map <String, Map> Vectors = new HashMap<>();
+         Map <String, Map<String, Double>> Vectors = new HashMap<>();
 
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
@@ -42,6 +42,16 @@ public class Main {
                                System.out.println(Index);
                             
                             }
+                        
+                        else if (command.startsWith("topj")){
+                            String[] inputSplit = command.split(" ");
+                            if (Vectors.containsKey(inputSplit[1])){
+                            System.out.println(vectors.topJ(Integer.parseInt(inputSplit[2]), inputSplit[1], Vectors));
+                            }
+                            else{
+                                System.out.println("Cannot Compute top-J similarity to " + inputSplit[1]);
+                            }
+                        }
                            
                         else if (command.equals("Num sentences")){
                               System.out.println(Index.size());
