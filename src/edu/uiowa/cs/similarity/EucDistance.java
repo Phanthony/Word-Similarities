@@ -14,7 +14,11 @@ import java.util.Map;
  */
 public class EucDistance implements CalculationFunction{
     @Override
-    public Double calculate(Map<String, Map<String, Double>> masterVector, Map<String, Double> wordVector, String wordinComparingWords){
+    public Double calculate(Map<String, Map<String, 
+            Double>> masterVector, 
+            Map<String, Double> wordVector, 
+            String wordinComparingWords){
+        
         Map<String, Double> comparingVector = masterVector.get(wordinComparingWords);
                 ArrayList<String> wordsinComparingVector = new ArrayList<>(comparingVector.keySet());
                 ArrayList<String> combinedLists = new ArrayList<>(vectors.mergeList(new ArrayList<>(wordVector.keySet()), wordsinComparingVector));
