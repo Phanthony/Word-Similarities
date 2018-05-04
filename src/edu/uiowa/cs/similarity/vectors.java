@@ -56,7 +56,7 @@ public class vectors {
         return false;
     }
     
-    private static ArrayList<String> mergeList (ArrayList<String> array1, ArrayList<String> array2){
+    public static ArrayList<String> mergeList (ArrayList<String> array1, ArrayList<String> array2){
         ArrayList<String> combined = new ArrayList<>(array1);
         combined.removeAll(array2);
         combined.addAll(array2);
@@ -89,8 +89,7 @@ public class vectors {
     }
     
     
-    
-    public static ArrayList topJ (int j, String word, Map<String, Map<String, Double>> masterVector){
+    public static ArrayList topJ (int j, String word, Map<String, Map<String, Double>> masterVector, CalculationFunction f){
         ArrayList<Map<String, Double>> simValueList = new ArrayList<>();
         Map<String, Double> wordVector = masterVector.get(word);
        ArrayList<String> wordsinWordVector = new ArrayList<>(wordVector.keySet());
@@ -98,30 +97,7 @@ public class vectors {
        Double smallest = 0.0;
        for (String wordinComparingWords : comparingWords){
            if(!wordinComparingWords.equals(word)){
-               Map<String, Double> comparingVector = masterVector.get(wordinComparingWords);
-                ArrayList<String> wordsinComparingVector = new ArrayList<>(comparingVector.keySet());
-                ArrayList<String> combinedLists = new ArrayList<>(mergeList(wordsinWordVector, wordsinComparingVector));
-                Double numerator = 0.0;
-                Double denominator1 = 0.0;
-                Double denominator2 = 0.0;
-                for (String wordsinCombinedLists : combinedLists){
-                    if (wordVector.containsKey(wordsinCombinedLists) && comparingVector.containsKey(wordsinCombinedLists)){
-                        numerator += comparingVector.get(wordsinCombinedLists) * wordVector.get(wordsinCombinedLists);
-                    }
-                     if (wordVector.containsKey(wordsinCombinedLists)){
-                         denominator1 += wordVector.get(wordsinCombinedLists) * wordVector.get(wordsinCombinedLists);
-                     }
-                     if (comparingVector.containsKey(wordsinCombinedLists)){
-                         denominator2 += comparingVector.get(wordsinCombinedLists) * comparingVector.get(wordsinCombinedLists);
-                     }
-                }
-                Double simValue;
-                if(numerator == 0.0 || denominator1 == 0.0 || denominator2 == 0.0){
-                    simValue = 0.0;
-                }
-                else{
-                     simValue = numerator / Math.sqrt(denominator1 * denominator2);
-                }
+               Double simValue = f.calculate(masterVector, wordVector, wordinComparingWords);
                 Map<String, Double> simWordValue = new HashMap<>();
                 simWordValue.put(wordinComparingWords, simValue);
                 smallest = addSimValue(simValueList, j, simWordValue, simValue, smallest);
