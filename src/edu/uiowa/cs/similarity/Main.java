@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
          ArrayList<ArrayList<String>> Index = new ArrayList<>();
          Map <String, Map<String, Double>> Vectors = new HashMap<>();
-
+         CalculationFunction calc = new CosineSim();
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
@@ -46,10 +46,22 @@ public class Main {
                         else if (command.toLowerCase().startsWith("topj")){
                             String[] inputSplit = command.split(" ");
                             if (Vectors.containsKey(inputSplit[1])){
-                            System.out.println(vectors.topJ(Integer.parseInt(inputSplit[2]), inputSplit[1], Vectors));
+                            System.out.println(vectors.topJ(Integer.parseInt(inputSplit[2]), inputSplit[1], Vectors, calc));
                             }
                             else{
                                 System.out.println("Cannot Compute top-J similarity to " + inputSplit[1]);
+                            }
+                        }
+                        
+                        else if (command.toLowerCase().startsWith("measure")){
+                            String[] inputSplit = command.split(" ");
+                            if (inputSplit[1].toLowerCase().equals("cos")){
+                                calc = new CosineSim();
+                                System.out.println("Similarity measure is cosine similarity");
+                            }
+                            else if (inputSplit[1].toLowerCase().equals("euc")){
+                                calc = new EucDistance();
+                                System.out.println("Similarity measure is negative euclidean distance");
                             }
                         }
                            
