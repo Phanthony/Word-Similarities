@@ -19,7 +19,7 @@ import opennlp.tools.stemmer.PorterStemmer;
 public class readFile {
     
     public static ArrayList readFileWithScanner(String fileName) throws FileNotFoundException{
-        Scanner stopFile = new Scanner(new File("C:\\Users\\Nghia\\OneDrive\\Desktop\\PRJECT\\project-team-40\\stopwords.txt"));
+        Scanner stopFile = new Scanner(new File("C:\\Users\\APhan\\Desktop\\CS2HW\\project-team-40\\stopwords.txt"));
         ArrayList<String> stopList = new ArrayList<>();
         while (stopFile.hasNextLine()){
             stopList.add(stopFile.nextLine());
@@ -56,14 +56,12 @@ public class readFile {
                 // check to see if the word you're adding to the building list is the end of the sentence
             if(!checker.matches(sentenceEnd)){
             builder.add(checker);
-               System.out.println(checker);
             }
             else{
                 checker = checker.replaceAll("[.!?]", "");
                 builder.add(checker);
                 sentenceList.add(builder);
                 builder = new ArrayList<>();
-                   System.out.println(checker);
             }
 
     }

@@ -42,7 +42,7 @@ public class Main {
                            System.out.println("Indexing " + inputSplit[1]);
                         }
                           
-                        else if (command.toCharArray().equals("sentences")){
+                        else if (command.toLowerCase().equals("sentences")){
                                
                                System.out.println(Index);
                             
